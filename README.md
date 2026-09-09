@@ -652,7 +652,7 @@ Third-party packages keep their own licenses.
 
 ## Author & support
 
-Built by **Reza Kazemi Fathi**.
+Built by **Reza Kazemi**.
 
 [![GitHub](https://img.shields.io/badge/GitHub-rkfcode-181717?logo=github)](https://github.com/rkfcode)
 [![Instagram](https://img.shields.io/badge/Instagram-rkfcode-E4405F?logo=instagram)](https://instagram.com/rkfcode)
