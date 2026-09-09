@@ -17,6 +17,14 @@ Run the proxy on Windows, point Cherry Studio at one local Base URL, and use the
 
 **English** · [فارسی](README.fa.md)
 
+> ### ⭐ The main advantage
+> **Use Claude Sonnet 5 through FreeModels Proxy for free, with the service's available high-speed access, and connect it to your favorite AI coding/agent clients through a local OpenAI-compatible API.**
+>
+> The same local endpoint can be used as a bridge for **Cherry Studio, Claude Code, OpenCode, Codex, Jan, and other OpenAI-compatible clients and agent environments**.
+>
+> **Important:** availability, speed, model access and usage limits are controlled by the upstream FreeModels service and can change at any time. FreeModels Proxy itself does not remove or guarantee upstream limits.
+
+
 ### [⬇️ Download FreeModels Proxy](https://github.com/rkfcode/FreeModels-Proxy/releases/latest)
 
 **Standalone Windows executable. No Python, pip, PowerShell, or manual dependency installation is required for the release build.**
@@ -86,6 +94,10 @@ The goal is simple: **keep Cherry Studio as the client and agent environment, wh
 | 🚀 **Automatic startup** | The launcher can start the proxy automatically when the application opens. |
 | 🔌 **OpenAI-compatible API** | Exposes the local API in the format expected by OpenAI-compatible clients. |
 | 🤖 **Cherry Studio ready** | Use `http://127.0.0.1:8000/v1` as the Base URL in Cherry Studio. |
+| ⭐ **Claude Sonnet 5 access** | Designed to make the available FreeModels Claude Sonnet 5 access usable from OpenAI-compatible clients and agent workflows. |
+| 🆓 **Free upstream access** | The proxy is intended to use the free access provided by FreeModels; the proxy itself does not charge for API requests. |
+| ⚡ **High-speed upstream access** | Requests are streamed through the local proxy, while actual upstream speed depends on the FreeModels service and network conditions. |
+| 🧩 **Works with agent ecosystems** | Use the local OpenAI-compatible endpoint with Cherry Studio, Claude Code, OpenCode, Codex, Jan and other compatible tools. |
 | 🌊 **Streaming responses** | Supports Server-Sent Events for streamed chat responses. |
 | 🧰 **MCP / tool-call bridge** | Reads tool definitions from Cherry Studio and converts model-side tool-call formats back into OpenAI-style `tool_calls`. |
 | 🔄 **Tool-call history handling** | Preserves assistant tool calls and tool results so agent workflows can continue across turns. |
@@ -164,7 +176,7 @@ http://127.0.0.1:8000/v1
 
 4. Open Cherry Studio.
 5. Create or edit an OpenAI-compatible provider.
-6. Set the Base URL to the value above.
+6. Set **Base URL** to `http://127.0.0.1:8000/v1` and **API Key** to `rkfcode` (or `free`).
 7. Select a model exposed by the proxy.
 8. Send a test message.
 
@@ -176,6 +188,47 @@ http://127.0.0.1:8000/docs
 
 ---
 
+## AI clients and agent environments
+
+FreeModels Proxy is not limited to Cherry Studio.
+
+Because it exposes an **OpenAI-compatible local API**, it can be used as a local bridge for compatible AI clients, coding assistants and agent environments.
+
+### Examples
+
+| Client / environment | Typical role |
+|---|---|
+| **Cherry Studio** | Chat, Agent and MCP workflows |
+| **Claude Code** | AI coding / terminal agent |
+| **OpenCode** | Open-source coding agent |
+| **Codex** | AI coding agent / CLI |
+| **Jan** | Local AI client with OpenAI-compatible connections |
+| **Other compatible clients** | Any application that can target an OpenAI-compatible Base URL |
+
+The common idea is:
+
+```text
+AI Client / Agent
+       │
+       │ OpenAI-compatible API
+       ▼
+http://127.0.0.1:8000/v1
+       │
+       ▼
+FreeModels Proxy
+       │
+       ▼
+FreeModels upstream
+```
+
+This means you do not need a separate custom integration for every supported client when that client already understands OpenAI-compatible APIs.
+
+### About "free and unlimited"
+
+The project is designed around the **free access made available by the FreeModels upstream service**. If that service currently provides Claude Sonnet 5 without a paid API key or a practical request limit, the proxy can make that access available to compatible clients through the local API.
+
+However, **FreeModels Proxy cannot guarantee unlimited usage, permanent free access, a specific speed, or uninterrupted availability**. Those properties are determined by the upstream service, its policies, capacity and network conditions.
+
 ## Cherry Studio
 
 Use the following configuration as the starting point:
@@ -184,8 +237,27 @@ Use the following configuration as the starting point:
 |---|---|
 | Provider type | OpenAI-compatible |
 | Base URL | `http://127.0.0.1:8000/v1` |
-| API key | Not required by the local proxy itself |
+| API key | `rkfcode` or `free` |
 | Model | Select one of the models exposed by `/v1/models` |
+
+### Recommended connection settings
+
+Use these values when a client asks for an OpenAI-compatible provider:
+
+```text
+Base URL: http://127.0.0.1:8000/v1
+API Key:  rkfcode
+```
+
+If the client does not accept `rkfcode`, use:
+
+```text
+API Key: free
+```
+
+The API key here is used as the client-side credential value expected by the compatible client/proxy setup; it is not an OpenAI billing key.
+
+The important part is the **Base URL**. OpenAI-compatible clients normally expect the API root, while the client adds operation paths such as `/chat/completions` itself. citeturn0search1turn0search7
 
 ### Why `/v1`?
 
@@ -346,7 +418,48 @@ http://127.0.0.1:8000/v1/models
 
 You should receive an OpenAI-style model list.
 
-### Cherry Studio check
+### AI clients and agent environments
+
+FreeModels Proxy is not limited to Cherry Studio.
+
+Because it exposes an **OpenAI-compatible local API**, it can be used as a local bridge for compatible AI clients, coding assistants and agent environments.
+
+### Examples
+
+| Client / environment | Typical role |
+|---|---|
+| **Cherry Studio** | Chat, Agent and MCP workflows |
+| **Claude Code** | AI coding / terminal agent |
+| **OpenCode** | Open-source coding agent |
+| **Codex** | AI coding agent / CLI |
+| **Jan** | Local AI client with OpenAI-compatible connections |
+| **Other compatible clients** | Any application that can target an OpenAI-compatible Base URL |
+
+The common idea is:
+
+```text
+AI Client / Agent
+       │
+       │ OpenAI-compatible API
+       ▼
+http://127.0.0.1:8000/v1
+       │
+       ▼
+FreeModels Proxy
+       │
+       ▼
+FreeModels upstream
+```
+
+This means you do not need a separate custom integration for every supported client when that client already understands OpenAI-compatible APIs.
+
+### About "free and unlimited"
+
+The project is designed around the **free access made available by the FreeModels upstream service**. If that service currently provides Claude Sonnet 5 without a paid API key or a practical request limit, the proxy can make that access available to compatible clients through the local API.
+
+However, **FreeModels Proxy cannot guarantee unlimited usage, permanent free access, a specific speed, or uninterrupted availability**. Those properties are determined by the upstream service, its policies, capacity and network conditions.
+
+## Cherry Studio check
 
 Configure:
 
