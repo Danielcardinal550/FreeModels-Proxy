@@ -19,6 +19,14 @@ FreeModels Proxy روی ویندوز اجرا می‌شود و یک API محلی
 
 **[English](README.md)** · فارسی
 
+> ### ⭐ مزیت اصلی پروژه
+> **هدف FreeModels Proxy این است که دسترسی موجود FreeModels به Claude Sonnet 5 را به‌صورت رایگان و با سرعت بالای سرویس، از طریق یک API سازگار با OpenAI در اختیار Clientها و Agentهای مختلف قرار دهد.**
+>
+> همین Endpoint محلی می‌تواند به **Cherry Studio، Claude Code، OpenCode، Codex، Jan و سایر Clientها و محیط‌های Agent سازگار با OpenAI API** متصل شود.
+>
+> **نکته مهم:** میزان دسترسی، سرعت، مدل‌ها و محدودیت‌های استفاده توسط سرویس Upstream یعنی FreeModels تعیین می‌شود و ممکن است تغییر کند. خود FreeModels Proxy محدودیت‌های سرویس Upstream را حذف یا تضمین نمی‌کند.
+
+
 ### [⬇️ دانلود FreeModels Proxy](https://github.com/rkfcode/FreeModels-Proxy/releases/latest)
 
 **نسخه Release به‌صورت فایل اجرایی مستقل ویندوز ارائه می‌شود و برای اجرای آن نیازی به Python، pip، PowerShell یا نصب دستی وابستگی‌ها ندارید.**
@@ -90,6 +98,10 @@ Cherry Studio
 | 🚀 **شروع خودکار** | لانچر می‌تواند هنگام باز شدن برنامه Proxy را به‌صورت خودکار اجرا کند. |
 | 🔌 **API سازگار با OpenAI** | API محلی با ساختار مناسب برای کلاینت‌های OpenAI-compatible. |
 | 🤖 **آماده برای Cherry Studio** | Base URL پیشنهادی: `http://127.0.0.1:8000/v1` |
+| ⭐ **دسترسی به Claude Sonnet 5** | طراحی‌شده برای استفاده از دسترسی موجود FreeModels به Claude Sonnet 5 از طریق Clientهای سازگار با OpenAI و Workflowهای Agent. |
+| 🆓 **دسترسی رایگان Upstream** | Proxy از دسترسی رایگان ارائه‌شده توسط FreeModels استفاده می‌کند و برای خود Proxy هزینه‌ای بابت API دریافت نمی‌شود. |
+| ⚡ **دسترسی سریع** | پاسخ‌ها از طریق Proxy به‌صورت Streaming عبور می‌کنند؛ سرعت نهایی به سرویس FreeModels و شرایط شبکه بستگی دارد. |
+| 🧩 **سازگار با اکوسیستم Agent** | قابل استفاده با Cherry Studio، Claude Code، OpenCode، Codex، Jan و سایر ابزارهای سازگار. |
 | 🌊 **پشتیبانی از Streaming** | پاسخ‌های Streaming با Server-Sent Events پشتیبانی می‌شوند. |
 | 🧰 **پل MCP / Tool Call** | تعریف ابزارهای ارسال‌شده از Cherry Studio دریافت و Tool Callهای مدل به ساختار OpenAI تبدیل می‌شوند. |
 | 🔄 **حفظ تاریخچه Tool Call** | پیام‌های assistant دارای Tool Call و نتایج ابزار برای ادامه چرخه Agent حفظ می‌شوند. |
@@ -168,7 +180,7 @@ http://127.0.0.1:8000/v1
 
 4. Cherry Studio را باز کنید.
 5. یک Provider از نوع OpenAI-compatible بسازید یا Provider فعلی را ویرایش کنید.
-6. Base URL بالا را وارد کنید.
+6. **Base URL** را روی `http://127.0.0.1:8000/v1` و **API Key** را روی `rkfcode` (یا `free`) قرار دهید.
 7. یکی از مدل‌های ارائه‌شده توسط Proxy را انتخاب کنید.
 8. یک پیام آزمایشی ارسال کنید.
 
@@ -180,6 +192,47 @@ http://127.0.0.1:8000/docs
 
 ---
 
+## اتصال به Clientها و Agentهای مختلف
+
+FreeModels Proxy فقط برای Cherry Studio نیست.
+
+چون Proxy یک **API محلی سازگار با OpenAI** ارائه می‌کند، می‌توان از آن به‌عنوان پل اتصال برای Clientهای هوش مصنوعی، Coding Assistantها و Agentهای مختلف استفاده کرد.
+
+### نمونه‌ها
+
+| Client / محیط | کاربرد |
+|---|---|
+| **Cherry Studio** | Chat، Agent و Workflowهای MCP |
+| **Claude Code** | Coding Agent و Agent ترمینالی |
+| **OpenCode** | Coding Agent متن‌باز |
+| **Codex** | Coding Agent / CLI |
+| **Jan** | Client هوش مصنوعی با قابلیت اتصال OpenAI-compatible |
+| **سایر Clientهای سازگار** | هر برنامه‌ای که امکان استفاده از OpenAI-compatible Base URL را داشته باشد |
+
+ساختار کلی:
+
+```text
+AI Client / Agent
+       │
+       │ OpenAI-compatible API
+       ▼
+http://127.0.0.1:8000/v1
+       │
+       ▼
+FreeModels Proxy
+       │
+       ▼
+FreeModels upstream
+```
+
+یعنی اگر Client موردنظر از OpenAI-compatible API پشتیبانی کند، برای اتصال آن به Proxy معمولاً نیازی به Integration اختصاصی جداگانه نیست.
+
+### منظور از «رایگان و نامحدود» چیست؟
+
+پروژه بر پایه **دسترسی رایگان ارائه‌شده توسط سرویس Upstream یعنی FreeModels** طراحی شده است. اگر سرویس FreeModels در حال حاضر دسترسی به Claude Sonnet 5 را بدون API Key پولی و بدون محدودیت عملی قابل‌توجه ارائه کند، Proxy می‌تواند همین دسترسی را از طریق API محلی در اختیار Clientهای سازگار قرار دهد.
+
+با این حال، **FreeModels Proxy نمی‌تواند رایگان‌بودن دائمی، استفاده نامحدود، سرعت مشخص یا در دسترس‌بودن دائمی سرویس را تضمین کند**؛ این موارد به سرویس Upstream، سیاست‌ها، ظرفیت و شرایط شبکه آن وابسته هستند.
+
 ## اتصال به Cherry Studio
 
 پیکربندی اولیه پیشنهادی:
@@ -188,8 +241,27 @@ http://127.0.0.1:8000/docs
 |---|---|
 | نوع Provider | OpenAI-compatible |
 | Base URL | `http://127.0.0.1:8000/v1` |
-| API Key | خود Proxy برای اتصال محلی به API Key نیاز ندارد |
+| API Key | `rkfcode` یا `free` |
 | Model | یکی از مدل‌های ارائه‌شده توسط `/v1/models` |
+
+### تنظیمات پیشنهادی اتصال
+
+وقتی Client از شما یک Provider سازگار با OpenAI می‌خواهد، این مقادیر را وارد کنید:
+
+```text
+Base URL: http://127.0.0.1:8000/v1
+API Key:  rkfcode
+```
+
+اگر Client مقدار `rkfcode` را قبول نکرد، مقدار زیر را امتحان کنید:
+
+```text
+API Key: free
+```
+
+این API Key در اینجا مقدار احراز هویت مورد انتظار Client/Proxy است و **API Key مربوط به حساب پولی OpenAI نیست**.
+
+مهم‌ترین بخش، **Base URL** است. در Clientهای OpenAI-compatible معمولاً باید ریشه API را وارد کرد و خود Client مسیرهایی مانند `/chat/completions` را اضافه می‌کند. citeturn0search1turn0search7
 
 ### چرا `/v1`؟
 
